@@ -45,23 +45,28 @@ function instant_cash_offer_form_shortcode( $atts ) {
 
 				<div>
 					<label for="length"><?php esc_html_e( 'Length:', 'freigty' ); ?></label>
-					<input type="number" id="length" name="length">
+					<input class="input-field" type="number" id="length" name="length">
+					<span class="stm-error"></span>
 				</div>
 				<div>
 					<label for="width"><?php esc_html_e( 'Width:', 'freigty' ); ?></label>
-					<input type="number" id="width" name="width">
+					<input class="input-field" type="number" id="width" name="width">
+					<span class="stm-error"></span>
 				</div>
 				<div>
 					<label for="height"><?php esc_html_e( 'Height:', 'freigty' ); ?></label>
-					<input type="number" id="height" name="height">
+					<input class="input-field" type="number" id="height" name="height">
+					<span class="stm-error"></span>
 				</div>
 				<div>
 					<label for="weight"><?php esc_html_e( 'Weight:', 'freigty' ); ?></label>
-					<input type="number" id="weight" name="weight">
+					<input class="input-field" type="number" id="weight" name="weight">
+					<span class="stm-error"></span>
 				</div>
 				<div>
 					<label for="quantity"><?php esc_html_e( 'Quantity:', 'freigty' ); ?></label>
-					<input type="number" id="quantity" name="quantity">
+					<input  class="input-field" type="number" id="quantity" name="quantity">
+					<span class="stm-error"></span>
 				</div>
 				<div>
 					<label for="image"><?php esc_html_e( 'Upload image:', 'freigty' ); ?></label>
@@ -99,8 +104,8 @@ function instant_cash_offer_form_shortcode( $atts ) {
 			</fieldset>
 			<fieldset class="step-4 fieldset">
 				<legend><?php echo __( 'Шаг 4', 'freigty' ); ?></legend>
-				<label for="message"><?php echo __( 'Дополнительное информация о грузе:', 'freigty' ); ?></label>
-				<textarea id="message" row="3" placeholder="<?php echo __( 'Здесь вы можете добавить нюансы и особенности вашей перевозки: сопровождение груза; документы на груз; таможенное прохождение; доп. условие по машине; перевозка животных и т. д.', 'freigty' ); ?>" name="freight_info"
+				<label for="freight_info"><?php echo __( 'Дополнительное информация о грузе:', 'freigty' ); ?></label>
+				<textarea id="freight_info" row="3" placeholder="<?php echo __( 'Здесь вы можете добавить нюансы и особенности вашей перевозки: сопровождение груза; документы на груз; таможенное прохождение; доп. условие по машине; перевозка животных и т. д.', 'freigty' ); ?>" name="freight_info"
 						  class="input-field"></textarea>
 				<span class="stm-error"></span>
 				<div class="row-button">
@@ -111,12 +116,20 @@ function instant_cash_offer_form_shortcode( $atts ) {
 				<legend><?php echo __( 'Шаг 5', 'freigty' ); ?></legend>
 				<h2 class="freight_info"><?php echo __( 'Freight info:', 'freigty' ); ?></h2>
 				<div class="final_freight_info" id="final_freight_info"></div>
+				<div class="freight_desc" id="freight_desc">
+					<span class="freight_desc_label">
+						<?php echo __( 'Freight Additional Desciription:', 'freigty' ); ?></span>
+					<span class="freight_desc_value" id="freight_desc_value"></span>
+
+				</div>
 				<div class="from_address_tag" id="from_address_tag"><span class="from_address_label">
 						<?php echo __( 'From Address:', 'freigty' ); ?></span>
-					<span class="from_address_value"></span></div>
+					<span class="from_address_value" id="from_address_value"></span>
+				</div>
 				<div class="to_address_tag" id="to_address_tag">
 					<span class="to_address_label"><?php echo __( 'To Address:', 'freigty' ); ?></span>
-					<span class="to_address_value"></span></div>
+					<span class="to_address_value" id="to_address_value"></span>
+				</div>
 
 				<div class="row-button">
 					<button type="button" class="back-button"><?php echo __( 'Назад', 'freigty' ); ?></button>

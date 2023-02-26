@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const showfinalButton = form.querySelector('.show-final-button');
 	const formid = document.getElementById('freight-form');
 	const final_freight_info = document.getElementById('final_freight_info');
+	const freight_info = document.getElementById("freight_info");
 
 	let currentStep = 0;
 
@@ -130,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			for (let [key, value] of formData.entries()) {
 				data[key] = value;
 			}
+			data['freight_info'] = freight_info.value;
 			alert('Form submitted successfully!\n\n' + JSON.stringify(data, null, 2));
 		}
 	}
@@ -139,6 +141,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		const to_address_value = document.getElementById('to_address_value');
 		const from_address_value = document.getElementById('from_address_value');
+		const freight_desc_value = document.getElementById('freight_desc_value');
+		const finalFreightInfo = document.getElementById("final_freight_info");
+
+
 		if (validateStep(fieldsets[currentStep])) {
 			const formData = new FormData(formid);
 			const data = {};
@@ -146,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				data[key] = value;
 			}
 
-			const finalFreightInfo = document.getElementById("final_freight_info");
+
 			finalFreightInfo.innerHTML = ""; // clear previous content
 
 			for (let key in data) {
@@ -158,9 +164,12 @@ document.addEventListener('DOMContentLoaded', function () {
 				} else {
 					const inputLabel = key.trim();
 					const inputValue = data[key];
-					finalFreightInfo.innerHTML += `<p>${inputLabel}: ${inputValue}</p>`;
+					//	finalFreightInfo.innerHTML += `<p>${inputLabel}: ${inputValue}</p>`;
+					if (key == 'from_address') from_address_value.innerHTML = `${inputValue}`;
+					if (key == 'to_address') to_address_value.innerHTML = `${inputValue}`;
 				}
 			}
+			freight_desc_value.innerHTML = freight_info.value;
 			nextStep(event);
 		}
 	}
