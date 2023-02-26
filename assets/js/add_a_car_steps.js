@@ -1,65 +1,28 @@
-function freight_buttons() {
-	const typeButtons = document.querySelectorAll('.freight-type-button');
-	const subcategoryWrappers = document.querySelectorAll('.freight-type-subcategories');
-	const freightbackbutton = document.querySelectorAll('.freight-back-button');
-	const freighttypebuttonrow = document.querySelectorAll('.freight-type-button-row');
+	function calculate() {
+		// Get form fields
+		const length = document.getElementById("length").value;
+		const width = document.getElementById("width").value;
+		const height = document.getElementById("height").value;
+		const weight = document.getElementById("weight").value;
+		const quantity = document.getElementById("quantity").value;
 
+		// Calculate volume
+		const volume = (length * width * height) / 1000000;
+		const volumeValue = volume.toFixed(3) + " М³";
 
-	freighttypebuttonrow.forEach((button, index) => {
-		freighttypebuttonrow[index].classList.add('notvisible');
-	});
-	freightbackbutton.forEach((button, index) => {
-		button.addEventListener('click', (event) => {
-			event.preventDefault();
-			typeButtons.forEach((button_1, index_1) => {
-				typeButtons.forEach(wrapper => wrapper.classList.remove('notvisible'));
-				subcategoryWrappers.forEach(wrapper => wrapper.classList.remove('visible'));
-				freighttypebuttonrow.forEach((button, index) => {
-					freighttypebuttonrow[index].classList.add('notvisible');
-				});
-			});
+		// Calculate total volume
+		const totalVolume = volume * quantity;
+		const totalVolumeValue = totalVolume.toFixed(3) + " М³";
 
-		});
-	});
-	typeButtons.forEach((button, index) => {
-		button.addEventListener('click', (event) => {
-			event.preventDefault();
-			typeButtons.forEach((button_1, index_1) => {
-				if (index != index_1) typeButtons[index_1].classList.add('notvisible');
-			});
-			subcategoryWrappers.forEach(wrapper => wrapper.classList.remove('visible'));
-			subcategoryWrappers[index].classList.add('visible');
-			freighttypebuttonrow.forEach(wrapper => wrapper.classList.remove('notvisible'));
-		});
-	});
-}
+		// Calculate total weight
+		const totalWeight = weight * quantity;
+		const totalWeightValue = totalWeight.toFixed(2) + " Кг";
 
-function calculate() {
-	// Get form fields
-	const length = document.getElementById("length").value;
-	const width = document.getElementById("width").value;
-	const height = document.getElementById("height").value;
-	const weight = document.getElementById("weight").value;
-	const quantity = document.getElementById("quantity").value;
-
-	// Calculate volume
-	const volume = (length * width * height) / 1000000;
-	const volumeValue = volume.toFixed(3) + " М³";
-
-	// Calculate total volume
-	const totalVolume = volume * quantity;
-	const totalVolumeValue = totalVolume.toFixed(3) + " М³";
-
-	// Calculate total weight
-	const totalWeight = weight * quantity;
-	const totalWeightValue = totalWeight.toFixed(2) + " Кг";
-
-	// Update summary fields
-	document.getElementById("volume-value").textContent = volumeValue;
-	document.getElementById("total-volume-value").textContent = totalVolumeValue;
-	document.getElementById("total-weight-value").textContent = totalWeightValue;
-}
-
+		// Update summary fields
+		document.getElementById("volume-value").textContent = volumeValue;
+		document.getElementById("total-volume-value").textContent = totalVolumeValue;
+		document.getElementById("total-weight-value").textContent = totalWeightValue;
+	}
 document.addEventListener('DOMContentLoaded', function () {
 	const form = document.querySelector('.my-form');
 	const fieldsets = form.querySelectorAll('fieldset');
@@ -73,20 +36,72 @@ document.addEventListener('DOMContentLoaded', function () {
 	const final_freight_info = document.getElementById('final_freight_info');
 	const freight_info = document.getElementById("freight_info");
 
+	const typeButtons = document.querySelectorAll('.freight-type-button');
+	const subcategoryWrappers = document.querySelectorAll('.freight-type-subcategories');
+	const freightbackbutton = document.querySelectorAll('.freight-back-button');
+	const freighttypebuttonrow = document.querySelectorAll('.freight-type-button-row');
+
 	let currentStep = 0;
+
+	function freight_buttons() {
+
+		freighttypebuttonrow.forEach((button, index) => {
+			freighttypebuttonrow[index].classList.add('notvisible');
+		});
+		freightbackbutton.forEach((button, index) => {
+			button.addEventListener('click', (event) => {
+				event.preventDefault();
+				typeButtons.forEach((button_1, index_1) => {
+					typeButtons.forEach(wrapper => wrapper.classList.remove('notvisible'));
+					subcategoryWrappers.forEach(wrapper => wrapper.classList.remove('visible'));
+					freighttypebuttonrow.forEach((button, index) => {
+						freighttypebuttonrow[index].classList.add('notvisible');
+					});
+				});
+
+			});
+		});
+		typeButtons.forEach((button, index) => {
+			button.addEventListener('click', (event) => {
+				event.preventDefault();
+				typeButtons.forEach((button_1, index_1) => {
+					if (index != index_1) typeButtons[index_1].classList.add('notvisible');
+				});
+				subcategoryWrappers.forEach(wrapper => wrapper.classList.remove('visible'));
+				subcategoryWrappers[index].classList.add('visible');
+				freighttypebuttonrow.forEach(wrapper => wrapper.classList.remove('notvisible'));
+			});
+		});
+	}
+
+
 
 	function validateInput(input) {
 		if (input.value.trim() === '') {
 			const errorMessage = input.dataset.errorMessage || 'This field is required';
-			const errorElement = input.nextElementSibling;
-			errorElement.textContent = errorMessage;
+			let errorElement = input.nextElementSibling;
+			if (errorElement && errorElement.classList.contains('stm-error')) {
+				errorElement.textContent = errorMessage;
+			} else {
+				errorElement = document.createElement('span');
+				errorElement.classList.add('stm-error');
+				errorElement.textContent = errorMessage;
+				input.insertAdjacentElement('afterend', errorElement);
+			}
 			return false;
+		} else {
+			const errorElement = input.nextElementSibling;
+			if (errorElement && errorElement.classList.contains('stm-error')) {
+				errorElement.remove();
+			}
+			return true;
 		}
-		return true;
 	}
 
+
 	function validateStep(step) {
-		const inputs = step.querySelectorAll('.input-field');
+		const inputs = step.querySelectorAll('.input-req');
+		const inputsreq = step.querySelectorAll('.input-req');
 		let isValid = true;
 		for (let i = 0; i < inputs.length; i++) {
 			const input = inputs[i];
@@ -186,6 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	for (let i = 0; i < backButtons.length; i++) {
 		backButtons[i].addEventListener('click', backStep);
 	}
+
 
 	freight_buttons();
 	submitButton.addEventListener('click', submitForm);

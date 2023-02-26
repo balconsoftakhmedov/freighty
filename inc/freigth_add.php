@@ -45,27 +45,27 @@ function instant_cash_offer_form_shortcode( $atts ) {
 
 				<div>
 					<label for="length"><?php esc_html_e( 'Length:', 'freigty' ); ?></label>
-					<input class="input-field" type="number" id="length" name="length">
+					<input class="input-field input-req" type="number" id="length" name="length">
 					<span class="stm-error"></span>
 				</div>
 				<div>
 					<label for="width"><?php esc_html_e( 'Width:', 'freigty' ); ?></label>
-					<input class="input-field" type="number" id="width" name="width">
+					<input class="input-field input-req" type="number" id="width" name="width">
 					<span class="stm-error"></span>
 				</div>
 				<div>
 					<label for="height"><?php esc_html_e( 'Height:', 'freigty' ); ?></label>
-					<input class="input-field" type="number" id="height" name="height">
+					<input class="input-field input-req" type="number" id="height" name="height">
 					<span class="stm-error"></span>
 				</div>
 				<div>
 					<label for="weight"><?php esc_html_e( 'Weight:', 'freigty' ); ?></label>
-					<input class="input-field" type="number" id="weight" name="weight">
+					<input class="input-field input-req" type="number" id="weight" name="weight">
 					<span class="stm-error"></span>
 				</div>
 				<div>
 					<label for="quantity"><?php esc_html_e( 'Quantity:', 'freigty' ); ?></label>
-					<input  class="input-field" type="number" id="quantity" name="quantity">
+					<input  class="input-field input-req" type="number" id="quantity" name="quantity">
 					<span class="stm-error"></span>
 				</div>
 				<div>
@@ -106,7 +106,7 @@ function instant_cash_offer_form_shortcode( $atts ) {
 				<legend><?php echo __( 'Шаг 4', 'freigty' ); ?></legend>
 				<label for="freight_info"><?php echo __( 'Дополнительное информация о грузе:', 'freigty' ); ?></label>
 				<textarea id="freight_info" row="3" placeholder="<?php echo __( 'Здесь вы можете добавить нюансы и особенности вашей перевозки: сопровождение груза; документы на груз; таможенное прохождение; доп. условие по машине; перевозка животных и т. д.', 'freigty' ); ?>" name="freight_info"
-						  class="input-field"></textarea>
+						  class="textarea-field"></textarea>
 				<span class="stm-error"></span>
 				<div class="row-button">
 					<button type="button" class="back-button"><?php echo __( 'Назад', 'freigty' ); ?></button>
