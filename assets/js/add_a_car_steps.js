@@ -9,7 +9,8 @@ function freight_buttons() {
 		freighttypebuttonrow[index].classList.add('notvisible');
 	});
 	freightbackbutton.forEach((button, index) => {
-		button.addEventListener('click', () => {
+		button.addEventListener('click', (event) => {
+			event.preventDefault();
 			typeButtons.forEach((button_1, index_1) => {
 				typeButtons.forEach(wrapper => wrapper.classList.remove('notvisible'));
 				subcategoryWrappers.forEach(wrapper => wrapper.classList.remove('visible'));
@@ -21,7 +22,8 @@ function freight_buttons() {
 		});
 	});
 	typeButtons.forEach((button, index) => {
-		button.addEventListener('click', () => {
+		button.addEventListener('click', (event) => {
+			event.preventDefault();
 			typeButtons.forEach((button_1, index_1) => {
 				if (index != index_1) typeButtons[index_1].classList.add('notvisible');
 			});
@@ -31,30 +33,31 @@ function freight_buttons() {
 		});
 	});
 }
+
 function calculate() {
-  // Get form fields
-  const length = document.getElementById("length").value;
-  const width = document.getElementById("width").value;
-  const height = document.getElementById("height").value;
-  const weight = document.getElementById("weight").value;
-  const quantity = document.getElementById("quantity").value;
+	// Get form fields
+	const length = document.getElementById("length").value;
+	const width = document.getElementById("width").value;
+	const height = document.getElementById("height").value;
+	const weight = document.getElementById("weight").value;
+	const quantity = document.getElementById("quantity").value;
 
-  // Calculate volume
-  const volume = (length * width * height) / 1000000;
-  const volumeValue = volume.toFixed(2) + " М³";
+	// Calculate volume
+	const volume = (length * width * height) / 1000000;
+	const volumeValue = volume.toFixed(3) + " М³";
 
-  // Calculate total volume
-  const totalVolume = volume * quantity;
-  const totalVolumeValue = totalVolume.toFixed(2) + " М³";
+	// Calculate total volume
+	const totalVolume = volume * quantity;
+	const totalVolumeValue = totalVolume.toFixed(3) + " М³";
 
-  // Calculate total weight
-  const totalWeight = weight * quantity;
-  const totalWeightValue = totalWeight.toFixed(2) + " Кг";
+	// Calculate total weight
+	const totalWeight = weight * quantity;
+	const totalWeightValue = totalWeight.toFixed(2) + " Кг";
 
-  // Update summary fields
-  document.getElementById("volume-value").textContent = volumeValue;
-  document.getElementById("total-volume-value").textContent = totalVolumeValue;
-  document.getElementById("total-weight-value").textContent = totalWeightValue;
+	// Update summary fields
+	document.getElementById("volume-value").textContent = volumeValue;
+	document.getElementById("total-volume-value").textContent = totalVolumeValue;
+	document.getElementById("total-weight-value").textContent = totalWeightValue;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -65,7 +68,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	const freightcontinueButtons = form.querySelectorAll('.freight-type-subcategory');
 	const backButtons = form.querySelectorAll('.back-button');
 	const submitButton = form.querySelector('.submit-button');
-
+	const showfinalButton = form.querySelector('.show-final-button');
+	const formid = document.getElementById('freight-form');
+	const final_freight_info = document.getElementById('final_freight_info');
 
 	let currentStep = 0;
 
@@ -90,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	function showStep(step) {
+
 		fieldsets[currentStep].classList.remove('current');
 		progressItems[currentStep].classList.remove('active');
 
@@ -99,21 +105,25 @@ document.addEventListener('DOMContentLoaded', function () {
 		currentStep = step;
 	}
 
-	function nextStep() {
+	function nextStep(event) {
+		event.preventDefault();
 		if (validateStep(fieldsets[currentStep])) {
 			const nextStep = currentStep + 1;
 			showStep(nextStep);
 		}
 	}
 
-	function backStep() {
-
+	function backStep(event) {
+		event.preventDefault();
 		const nextStep = currentStep - 1;
 		showStep(nextStep);
 
 	}
 
-	function submitForm() {
+	function submitForm(event) {
+		event.preventDefault();
+		const form = document.getElementById('freight-form');
+
 		if (validateStep(fieldsets[currentStep])) {
 			const formData = new FormData(form);
 			const data = {};
@@ -123,6 +133,32 @@ document.addEventListener('DOMContentLoaded', function () {
 			alert('Form submitted successfully!\n\n' + JSON.stringify(data, null, 2));
 		}
 	}
+
+	function showFinalForm(event) {
+  event.preventDefault();
+
+  if (validateStep(fieldsets[currentStep])) {
+    const formData = new FormData(formid);
+    const data = {};
+    for (let [key, value] of formData.entries()) {
+      data[key] = value;
+    }
+
+    const finalFreightInfo = document.getElementById("final_freight_info");
+    finalFreightInfo.innerHTML = ""; // clear previous content
+
+    for (let key in data) {
+      const label = document.querySelector(`label[for=${key}]`);
+      if (label) {
+        const inputLabel = label.textContent.trim();
+        const inputValue = data[key];
+        finalFreightInfo.innerHTML += `<p>${inputLabel}: ${inputValue}</p>`;
+      }
+    }
+	nextStep(event);
+  }
+}
+
 
 	for (let i = 0; i < continueButtons.length; i++) {
 		continueButtons[i].addEventListener('click', nextStep);
@@ -138,5 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	freight_buttons();
 	submitButton.addEventListener('click', submitForm);
+	showfinalButton.addEventListener('click', showFinalForm);
+
 
 });
