@@ -105,12 +105,19 @@ function instant_cash_offer_form_shortcode( $atts ) {
 				<span class="stm-error"></span>
 				<div class="row-button">
 					<button type="button" class="back-button"><?php echo __( 'Назад', 'freigty' ); ?></button>
-					<button type="button"  class="show-final-button freight-back-button"  id="show-final-button"><?php echo __( 'Next', 'freigty' ); ?></div>
+					<button type="button" class="show-final-button freight-back-button" id="show-final-button"><?php echo __( 'Next', 'freigty' ); ?></div>
 			</fieldset>
 			<fieldset class="step-5 fieldset">
 				<legend><?php echo __( 'Шаг 5', 'freigty' ); ?></legend>
-				<h2 class="freight_info" ><?php echo __( 'Freight Iinfo:', 'freigty' ); ?></h2>
+				<h2 class="freight_info"><?php echo __( 'Freight info:', 'freigty' ); ?></h2>
 				<div class="final_freight_info" id="final_freight_info"></div>
+				<div class="from_address_tag" id="from_address_tag"><span class="from_address_label">
+						<?php echo __( 'From Address:', 'freigty' ); ?></span>
+					<span class="from_address_value"></span></div>
+				<div class="to_address_tag" id="to_address_tag">
+					<span class="to_address_label"><?php echo __( 'To Address:', 'freigty' ); ?></span>
+					<span class="to_address_value"></span></div>
+
 				<div class="row-button">
 					<button type="button" class="back-button"><?php echo __( 'Назад', 'freigty' ); ?></button>
 					<input type="submit" value="<?php echo __( 'Submit', 'freigty' ); ?>" class="submit-button"></div>

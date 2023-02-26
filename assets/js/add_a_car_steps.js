@@ -135,29 +135,35 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	function showFinalForm(event) {
-  event.preventDefault();
+		event.preventDefault();
 
-  if (validateStep(fieldsets[currentStep])) {
-    const formData = new FormData(formid);
-    const data = {};
-    for (let [key, value] of formData.entries()) {
-      data[key] = value;
-    }
+		const to_address_value = document.getElementById('to_address_value');
+		const from_address_value = document.getElementById('from_address_value');
+		if (validateStep(fieldsets[currentStep])) {
+			const formData = new FormData(formid);
+			const data = {};
+			for (let [key, value] of formData.entries()) {
+				data[key] = value;
+			}
 
-    const finalFreightInfo = document.getElementById("final_freight_info");
-    finalFreightInfo.innerHTML = ""; // clear previous content
+			const finalFreightInfo = document.getElementById("final_freight_info");
+			finalFreightInfo.innerHTML = ""; // clear previous content
 
-    for (let key in data) {
-      const label = document.querySelector(`label[for=${key}]`);
-      if (label) {
-        const inputLabel = label.textContent.trim();
-        const inputValue = data[key];
-        finalFreightInfo.innerHTML += `<p>${inputLabel}: ${inputValue}</p>`;
-      }
-    }
-	nextStep(event);
-  }
-}
+			for (let key in data) {
+				const label = document.querySelector(`label[for=${key}]`);
+				if (label) {
+					const inputLabel = label.textContent.trim();
+					const inputValue = data[key];
+					finalFreightInfo.innerHTML += `<p>${inputLabel}: ${inputValue}</p>`;
+				} else {
+					const inputLabel = key.trim();
+					const inputValue = data[key];
+					finalFreightInfo.innerHTML += `<p>${inputLabel}: ${inputValue}</p>`;
+				}
+			}
+			nextStep(event);
+		}
+	}
 
 
 	for (let i = 0; i < continueButtons.length; i++) {
