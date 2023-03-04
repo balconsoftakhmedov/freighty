@@ -1,28 +1,39 @@
-	function calculate() {
-		// Get form fields
-		const length = document.getElementById("length").value;
-		const width = document.getElementById("width").value;
-		const height = document.getElementById("height").value;
-		const weight = document.getElementById("weight").value;
-		const quantity = document.getElementById("quantity").value;
+function calculate() {
+	// Get form fields
+	const length = document.getElementById("length").value;
+	const width = document.getElementById("width").value;
+	const height = document.getElementById("height").value;
+	const weight = document.getElementById("weight").value;
+	const quantity = document.getElementById("quantity").value;
 
-		// Calculate volume
-		const volume = (length * width * height) / 1000000;
-		const volumeValue = volume.toFixed(3) + " М³";
+	// Calculate volume
+	const volume = (length * width * height) / 1000000;
+	const volumeValue = volume.toFixed(3) + " М³";
 
-		// Calculate total volume
-		const totalVolume = volume * quantity;
-		const totalVolumeValue = totalVolume.toFixed(3) + " М³";
+	// Calculate total volume
+	const totalVolume = volume * quantity;
+	const totalVolumeValue = totalVolume.toFixed(3) + " М³";
 
-		// Calculate total weight
-		const totalWeight = weight * quantity;
-		const totalWeightValue = totalWeight.toFixed(2) + " Кг";
+	// Calculate total weight
+	const totalWeight = weight * quantity;
+	const totalWeightValue = totalWeight.toFixed(2) + " Кг";
 
-		// Update summary fields
-		document.getElementById("volume-value").textContent = volumeValue;
-		document.getElementById("total-volume-value").textContent = totalVolumeValue;
-		document.getElementById("total-weight-value").textContent = totalWeightValue;
-	}
+	// Update summary fields
+	document.getElementById("volume-value").textContent = volumeValue;
+	document.getElementById("total-volume-value").textContent = totalVolumeValue;
+	document.getElementById("total-weight-value").textContent = totalWeightValue;
+}
+
+function displayImage(event) {
+	const file = event.target.files[0];
+	const reader = new FileReader();
+	reader.onload = function (event) {
+		const img = document.getElementById("image-preview");
+		img.src = event.target.result;
+	};
+	reader.readAsDataURL(file);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 	const form = document.querySelector('.my-form');
 	const fieldsets = form.querySelectorAll('fieldset');
@@ -73,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 		});
 	}
-
 
 
 	function validateInput(input) {
@@ -173,9 +183,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			for (let key in data) {
 				const label = document.querySelector(`label[for=${key}]`);
 				if (label) {
-					const inputLabel = label.textContent.trim();
-					const inputValue = data[key];
-					finalFreightInfo.innerHTML += `<p>${inputLabel}: ${inputValue}</p>`;
+					let inputLabel = label.textContent.trim();
+					let inputValue = data[key];
+					if (inputLabel == 'Upload image:') {
+						const img_url = URL.createObjectURL(inputValue);
+						inputValue = `<img class="stm-image-preview" src="${img_url}">`;
+					}
+					finalFreightInfo.innerHTML += `<p>${inputLabel} ${inputValue}</p>`;
 				} else {
 					const inputLabel = key.trim();
 					const inputValue = data[key];
@@ -206,6 +220,4 @@ document.addEventListener('DOMContentLoaded', function () {
 	freight_buttons();
 	submitButton.addEventListener('click', submitForm);
 	showfinalButton.addEventListener('click', showFinalForm);
-
-
 });

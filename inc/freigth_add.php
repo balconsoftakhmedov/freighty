@@ -70,7 +70,8 @@ function instant_cash_offer_form_shortcode( $atts ) {
 				</div>
 				<div>
 					<label for="image"><?php esc_html_e( 'Upload image:', 'freigty' ); ?></label>
-					<input type="file" id="image" name="image">
+					<input type="file" id="image" class="fr-image" name="image" onchange="displayImage(event)">
+				<img id="image-preview">
 				</div>
 
 				<div>
