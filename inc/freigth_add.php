@@ -65,13 +65,13 @@ function instant_cash_offer_form_shortcode( $atts ) {
 				</div>
 				<div>
 					<label for="quantity"><?php esc_html_e( 'Quantity:', 'freigty' ); ?></label>
-					<input  class="input-field input-req" type="number" id="quantity" name="quantity">
+					<input class="input-field input-req" type="number" id="quantity" name="quantity">
 					<span class="stm-error"></span>
 				</div>
 				<div>
 					<label for="image"><?php esc_html_e( 'Upload image:', 'freigty' ); ?></label>
 					<input type="file" id="image" class="fr-image" name="image" onchange="displayImage(event)">
-				<img id="image-preview">
+					<img id="image-preview">
 				</div>
 
 				<div>
@@ -116,6 +116,17 @@ function instant_cash_offer_form_shortcode( $atts ) {
 			<fieldset class="step-5 fieldset">
 				<legend><?php echo __( 'Шаг 5', 'freigty' ); ?></legend>
 				<h2 class="freight_info"><?php echo __( 'Freight info:', 'freigty' ); ?></h2>
+				<div class="category_tag" id="category_tag">
+					<span class="category_tag_label">
+						<?php echo __( 'Category:', 'freigty' ); ?></span>
+					<span class="category_tag_value" id="category_tag_value"></span>
+				</div>
+				<div class="subcategory_tag" id="subcategory_tag">
+					<span class="subcategory_tag_label">
+						<?php echo __( 'SubCategory:', 'freigty' ); ?></span>
+					<span class="subcategory_tag_value" id="subcategory_tag_value"></span>
+				</div>
+
 				<div class="final_freight_info" id="final_freight_info"></div>
 				<div class="freight_desc" id="freight_desc">
 					<span class="freight_desc_label">

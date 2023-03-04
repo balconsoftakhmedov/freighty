@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../plugins/freight-custom-post-type/.idea/freight-custom-post-type.iml" filepath="$PROJECT_DIR$/../../plugins/freight-custom-post-type/.idea/freight-custom-post-type.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/freighty.iml" filepath="$PROJECT_DIR$/.idea/freighty.iml" />
     </modules>
   </component>

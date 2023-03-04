@@ -51,6 +51,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	const subcategoryWrappers = document.querySelectorAll('.freight-type-subcategories');
 	const freightbackbutton = document.querySelectorAll('.freight-back-button');
 	const freighttypebuttonrow = document.querySelectorAll('.freight-type-button-row');
+	const categoryIdInput = document.getElementById('category_id');
+	const categoryNameInput = document.getElementById('category_name');
 
 	let currentStep = 0;
 
@@ -79,6 +81,16 @@ document.addEventListener('DOMContentLoaded', function () {
 					if (index != index_1) typeButtons[index_1].classList.add('notvisible');
 				});
 				subcategoryWrappers.forEach(wrapper => wrapper.classList.remove('visible'));
+
+				console.log(button.dataset.category_id); // get category_id attribute
+				console.log(button.textContent.trim()); // get text content
+				// Get the category ID and name from the clicked button
+				const categoryId = button.getAttribute('data-category_id');
+				const categoryName = button.textContent.trim();
+
+				// Assign the values to the hidden input fields
+				categoryIdInput.value = categoryId;
+				categoryNameInput.value = categoryName;
 				subcategoryWrappers[index].classList.add('visible');
 				freighttypebuttonrow.forEach(wrapper => wrapper.classList.remove('notvisible'));
 			});
@@ -168,7 +180,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		const from_address_value = document.getElementById('from_address_value');
 		const freight_desc_value = document.getElementById('freight_desc_value');
 		const finalFreightInfo = document.getElementById("final_freight_info");
-
+		const category_value = document.getElementById('category_tag_value');
+		const subcategory_value = document.getElementById('subcategory_tag_value');
 
 		if (validateStep(fieldsets[currentStep])) {
 			const formData = new FormData(formid);
@@ -193,9 +206,12 @@ document.addEventListener('DOMContentLoaded', function () {
 				} else {
 					const inputLabel = key.trim();
 					const inputValue = data[key];
-					//	finalFreightInfo.innerHTML += `<p>${inputLabel}: ${inputValue}</p>`;
+					//finalFreightInfo.innerHTML += `<p>${inputLabel}: ${inputValue}</p>`;
 					if (key == 'from_address') from_address_value.innerHTML = `${inputValue}`;
 					if (key == 'to_address') to_address_value.innerHTML = `${inputValue}`;
+
+					if (key == 'category_name') category_value.innerHTML = `${inputValue}`;
+					if (key == 'subcategory_name') subcategory_value.innerHTML = `${inputValue}`;
 				}
 			}
 			freight_desc_value.innerHTML = freight_info.value;
@@ -209,7 +225,15 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	for (let i = 0; i < freightcontinueButtons.length; i++) {
-		freightcontinueButtons[i].addEventListener('click', nextStep);
+		freightcontinueButtons[i].addEventListener('click', function (event) {
+			event.preventDefault();
+			const subcategoryId = this.dataset.subcategory_id;
+			const subcategoryName = this.textContent.trim();
+			document.querySelector('#subcategory_id').value = subcategoryId;
+			document.querySelector('#subcategory_name').value = subcategoryName;
+			console.log(subcategoryName, subcategoryId);
+			nextStep(event);
+		});
 	}
 
 	for (let i = 0; i < backButtons.length; i++) {
