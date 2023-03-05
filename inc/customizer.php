@@ -2,20 +2,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Implement Theme Customizer additions and adjustments.
- * https://codex.wordpress.org/Theme_Customization_API
- *
- * How do I "output" custom theme modification settings? https://developer.wordpress.org/reference/functions/get_theme_mod
- * echo get_theme_mod( 'copyright_info' );
- * or: echo get_theme_mod( 'copyright_info', 'Default (c) Copyright Info if nothing provided' );
- *
- * "sanitize_callback": https://codex.wordpress.org/Data_Validation
- *
- * @param WP_Customize_Manager $wp_customize Theme Customizer object.
- *
- * @return void
- */
+
 function freighty_customize( $wp_customize ) {
 	/**
 	 * Initialize sections
@@ -122,11 +109,7 @@ function freighty_customize( $wp_customize ) {
 }
 add_action( 'customize_register', 'freighty_customize' );
 
-/**
- * Bind JS handlers to make Theme Customizer preview reload changes asynchronously.
- *
- * @return void
- */
+
 function freighty_customize_preview_js() {
 	wp_enqueue_script( 'customizer', get_template_directory_uri() . '/inc/customizer.js', array( 'jquery' ), null, true );
 }

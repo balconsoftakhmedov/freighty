@@ -169,7 +169,22 @@ document.addEventListener('DOMContentLoaded', function () {
 				data[key] = value;
 			}
 			data['freight_info'] = freight_info.value;
-			alert('Form submitted successfully!\n\n' + JSON.stringify(data, null, 2));
+			data['action'] = 'create_or_update_freight';
+			data['_ajax_nonce-freight_nonce'] = freight_ajax_object.freight_nonce;
+data['image'] = '';
+console.log(data);
+			jQuery.ajax({
+				type: 'POST',
+				url: freight_ajax_object.ajax_url,
+				data: data,
+				success: function (response) {
+					console.log(response);
+				},
+				error: function (xhr, status, error) {
+
+				}
+			});
+
 		}
 	}
 

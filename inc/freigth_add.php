@@ -10,7 +10,24 @@
 add_action( 'wp_enqueue_scripts', 'freighty_add_scripts_loader' );
 function freighty_add_scripts_loader() {
 	wp_enqueue_style( 'stm_add_a_car_steps', get_stylesheet_directory_uri() . '/assets/css/add_a_car_steps.css', [], time() );
-	wp_enqueue_script( 'stm_add_a_car_steps', get_stylesheet_directory_uri() . '/assets/js/add_a_car_steps.js', [ 'jquery' ], time() );
+	wp_enqueue_script( 'jquery-ui-dialog' );
+	wp_enqueue_style( 'wp-jquery-ui-dialog' );
+	$wraiter_enqueu_val = array(
+			'stm_add_a_car_steps' => 'add_a_car_steps.js',
+	);
+	$ajax_params        = array(
+			'ajax_url'      => admin_url( 'admin-ajax.php' ),
+			'freight_nonce' => wp_create_nonce( 'freight_nonce' )
+	);
+	foreach ( $wraiter_enqueu_val as $enque_string => $filenames ) {
+		wp_enqueue_script( $enque_string, get_stylesheet_directory_uri()  . "/assets/js/{$filenames}", array( 'jquery', 'wp-i18n', 'jquery-ui-dialog' ), time(), true );
+		wp_localize_script( $enque_string, 'freight_ajax_object', $ajax_params );
+		wp_set_script_translations(
+				$enque_string,
+				'freight',
+				get_stylesheet_directory() . '/languages'
+		);
+	}
 
 }
 
