@@ -261,7 +261,6 @@ console.log(data);
 
 	if (loadsubmit === true) {
 			submitForm(event);
-			console.log('loadeee', loadsubmit);
 	}
 
 }
