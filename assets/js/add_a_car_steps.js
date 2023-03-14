@@ -33,8 +33,7 @@ function displayImage(event) {
 	};
 	reader.readAsDataURL(file);
 }
-
-document.addEventListener('DOMContentLoaded', function () {
+function get_add_freight_function(event, loadsubmit = false) {
 	const form = document.querySelector('.my-form');
 	const fieldsets = form.querySelectorAll('fieldset');
 	const progressItems = form.querySelectorAll('.fl-progress-bar li');
@@ -259,4 +258,11 @@ console.log(data);
 	freight_buttons();
 	submitButton.addEventListener('click', submitForm);
 	showfinalButton.addEventListener('click', showFinalForm);
-});
+
+	if (loadsubmit === true) {
+			submitForm(event);
+			console.log('loadeee', loadsubmit);
+	}
+
+}
+document.addEventListener('DOMContentLoaded',  get_add_freight_function(event) );
