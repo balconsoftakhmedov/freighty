@@ -162,7 +162,7 @@ function instant_cash_offer_form_shortcode( $atts ) {
 
 				<div class="row-button">
 					<button type="button" class="back-button"><?php echo __( 'Назад', 'freigty' ); ?></button>
-					<input type="submit" value="<?php echo __( 'Submit', 'freigty' ); ?>" class="submit-button"></div>
+					<input id="stm-final-submit" type="submit" value="<?php echo __( 'Submit', 'freigty' ); ?>" class="submit-button lrm-login  stm-final-submit"></div>
 			</fieldset>
 		</form>
 	</div>
