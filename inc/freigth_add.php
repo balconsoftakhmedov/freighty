@@ -61,6 +61,11 @@ function instant_cash_offer_form_shortcode( $atts ) {
 				<legend><?php esc_html_e( 'Step 2', 'freigty' ); ?></legend>
 
 				<div>
+					<label for="title"><?php esc_html_e( 'Title:', 'freigty' ); ?></label>
+					<input class="input-field input-req" type="text" id="title" name="title">
+					<span class="stm-error"></span>
+				</div>
+				<div>
 					<label for="length"><?php esc_html_e( 'Length:', 'freigty' ); ?></label>
 					<input class="input-field input-req" type="number" id="length" name="length">
 					<span class="stm-error"></span>
@@ -94,6 +99,7 @@ function instant_cash_offer_form_shortcode( $atts ) {
 				<div>
 					<button type="button" onclick="calculate()"><?php esc_html_e( 'Calculate', 'freigty' ); ?></button>
 				</div>
+
 				<div>
 					<label for="volume"><?php echo __( 'Volume:', 'freigty' ); ?></label>
 					<span id="volume-value"><?php echo __( '0.00 М³', 'freigty' ); ?></span>
@@ -124,7 +130,7 @@ function instant_cash_offer_form_shortcode( $atts ) {
 				<legend><?php echo __( 'Шаг 4', 'freigty' ); ?></legend>
 				<label for="freight_info"><?php echo __( 'Дополнительное информация о грузе:', 'freigty' ); ?></label>
 				<textarea id="freight_info" row="3" placeholder="<?php echo __( 'Здесь вы можете добавить нюансы и особенности вашей перевозки: сопровождение груза; документы на груз; таможенное прохождение; доп. условие по машине; перевозка животных и т. д.', 'freigty' ); ?>" name="freight_info"
-						  class="textarea-field"></textarea>
+						  class="textarea-field input-req"></textarea>
 				<span class="stm-error"></span>
 				<div class="row-button">
 					<button type="button" class="back-button"><?php echo __( 'Назад', 'freigty' ); ?></button>
